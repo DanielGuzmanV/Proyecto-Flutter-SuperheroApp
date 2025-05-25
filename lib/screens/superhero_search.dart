@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:superhero_app/data/repository.dart';
 import 'package:superhero_app/model/superhero_details.dart';
 import 'package:superhero_app/model/superhero_response.dart';
+import 'package:superhero_app/screens/details_superhero.dart';
 
 class SuperheroSearch extends StatefulWidget {
   const SuperheroSearch({super.key});
@@ -97,41 +98,49 @@ class _SuperheroSearchState extends State<SuperheroSearch> {
   Padding itemListSuperHero(SuperheroDetails itemList) => Padding(
     padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
 
-    child: Container(
-      
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: const Color(0xFF515163)
-      ),
-      
-      child: Column(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(16),
+    child: GestureDetector(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return DetailsSuperhero(superheroDetails: itemList,);
+        },));
+      },
 
-            child: Image.network(
-
-              itemList.url,
-              height: 250,
-              width: double.infinity,
-              fit: BoxFit.cover,
-              alignment: Alignment.center,
-              errorBuilder: (context, error, stackTrace) => const Icon(Icons.error),
-                  
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              itemList.name,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 30,
-                fontWeight: FontWeight.bold
+      child: Container(
+        
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          color: const Color(0xFF515163)
+        ),
+        
+        child: Column(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+      
+              child: Image.network(
+      
+                itemList.url,
+                height: 250,
+                width: double.infinity,
+                fit: BoxFit.cover,
+                alignment: Alignment.center,
+                errorBuilder: (context, error, stackTrace) => const Icon(Icons.error),
+                    
               ),
             ),
-          )
-        ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                itemList.name,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     ),
   );
