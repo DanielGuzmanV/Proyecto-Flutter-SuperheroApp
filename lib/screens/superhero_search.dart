@@ -49,7 +49,21 @@ class _SuperheroSearchState extends State<SuperheroSearch> {
               } else if(snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else if(snapshot.hasData) {
-                return Text('${snapshot.data?.response}');
+                  var superheroList = snapshot.data?.result;
+                
+                  return Expanded(
+                    child: ListView.builder(
+                      itemCount: superheroList?.length ?? 0,
+                      itemBuilder: (context, index) {
+                        if(superheroList != null) {
+                          return Text(superheroList[index].name);
+                        } else {
+                          return const Text('Error');
+                        }
+                      },
+                    
+                    ),
+                  );
               } else {
                 return const Text('No hay resultados');
               }
